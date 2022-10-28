@@ -1,16 +1,19 @@
 {% extends 'base.html' %}
-{% block titulo %}DBGraphics{% endblock %}
+{% block titulo %}Panel{% endblock %}
 {% block contenido %}
 
 {% include '_menu.html' %}
 
     <div class="container mt-5 login-title">
-        <h1>Datos</h1>
+        <h1>¿Quieres ver la grafica de tu archivo csv?</h1>
+        <p>Sube tu archivo</p>
+        <form action="/file/process" method="post" enctype=multipart/form-data>
+            <input name="file" type="file" class="form-control">
+            <button type="submit" class="btn btn-outline-primary">Subir</button>
+        </form>
+
     </div>
-    <form action="/file/process" method="post" enctype=multipart/form-data>
-        <input name="file" type="file" class="form-control">
-        <button type="submit">Subir</button>
-    </form>
 
 
+    {% include 'footer.html' %}
 {% endblock %}
