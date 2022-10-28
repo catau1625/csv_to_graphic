@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block titulo %}DBGraphics{% endblock %}
+{% block contenido %}
+
+{% include '_menu.html' %}
+
+<div class="container mt-5 login-title">
+    <h1>DBGraphics</h1>
+</div>
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+<select onchange="someFunction()" name="rows" id="row_data">
+    {% for element in datos.rows %}
+        <option value="{{ element }}">{{ element }}</option>
+    {% endfor %}
+</select>
+
+{% endblock %}
+{% block librerias %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    let myChart;
+    //var myChartOtro = document.getElementById('myChart');
+    var datos = JSON.parse('{{datos|tojson|safe}}');
+    function someFunction(){
+        var row_data = document.getElementById('row_data')
+        console.log(row_data.value)
+        for (var i = 0; i < datos.rows.length ; i++){
+            if (row_data.value == datos.rows[i]){
+                drawGraph(i)
+                console.log(i)
+            }
+            else{
+                continue
+            }
+            
+        }
+    }
+    function drawGraph(index){
+        const data = {
+            labels: datos.header,
+            datasets: [{
+              label: 'Uploaded Data',
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderColor: 'rgb(255, 99, 132)',
+              data: datos.body[index],
+            }]
+          };
+        
+          const config = {
+            type: 'bar',
+            data: data,
+            options: {}
+          };
+        if (myChart) {
+            myChart.destroy();
+        }
+    myChart = new Chart(
+        document.getElementById('myChart'),
+      config
+      );
+    }
+    
+    const data = {
+      labels: datos.header,
+      datasets: [{
+        label: 'Uploaded Data',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: datos.body[0],
+      }]
+    };
+  
+    const config = {
+      type: 'bar',
+      data: data,
+      options: {}
+    };
+myChart = new Chart(
+document.getElementById('myChart'),
+config
+);
+</script>
+
+{% endblock %}
