@@ -4,6 +4,7 @@ from flask_crud.__init__ import app
 from werkzeug.utils import secure_filename
 from flask_crud.utils.utils import allowed_file
 import os
+from flask_crud.models import archivo
 import csv
 import json
 
@@ -70,3 +71,11 @@ def graphics(filename):
 
 
 
+@app.route("/home")
+def home():
+    return render_template("home.html")
+
+
+@app.route("/basedatos1")
+def pag1():
+    return render_template("basedatos1.html")
