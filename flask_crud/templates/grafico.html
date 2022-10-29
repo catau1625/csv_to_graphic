@@ -4,24 +4,28 @@
 
 {% include '_menu.html' %}
 
-<div class="container mt-5 login-title">
-    <h1>DBGraphics</h1>
+<div class="container mt-5 login-title nav justify-content-between">
+    <h1 class="col">DBGraphics</h1>
+    <select class="col form-select form-select-lg" onchange="someFunction()" name="rows" id="row_data">
+      {% for element in datos.rows %}
+          <option value="{{ element }}">{{ element }}</option>
+      {% endfor %}
+  </select>
 </div>
 <div>
+  
+</div>
+<div class="ms-3 me-3 mt-4">
     <canvas id="myChart"></canvas>
 </div>
-<select onchange="someFunction()" name="rows" id="row_data">
-    {% for element in datos.rows %}
-        <option value="{{ element }}">{{ element }}</option>
-    {% endfor %}
-</select>
+
 
 {% endblock %}
 {% block librerias %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     let myChart;
-    //var myChartOtro = document.getElementById('myChart');
+    var nombre_archivo = JSON.parse('{{nombre_archivo|tojson|safe}}');
     var datos = JSON.parse('{{datos|tojson|safe}}');
     function someFunction(){
         var row_data = document.getElementById('row_data')
@@ -41,7 +45,7 @@
         const data = {
             labels: datos.header,
             datasets: [{
-              label: 'Uploaded Data',
+              label: nombre_archivo,
               backgroundColor: 'rgb(255, 99, 132)',
               borderColor: 'rgb(255, 99, 132)',
               data: datos.body[index],
@@ -65,7 +69,7 @@
     const data = {
       labels: datos.header,
       datasets: [{
-        label: 'Uploaded Data',
+        label: nombre_archivo,
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
         data: datos.body[0],

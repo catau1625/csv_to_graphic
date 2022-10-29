@@ -4,16 +4,15 @@ from flask_crud.__init__ import app
 from werkzeug.utils import secure_filename
 from flask_crud.utils.utils import allowed_file
 import os
-from flask_crud.models import archivo
 import csv
 import json
 
 @app.route("/panel")
 def panel():
     if 'usuario_nombre' not in session:
-        flash('Primero tienes que logearte', 'error')
-        return redirect('/login')
-    return render_template("panel.html")
+        flash('Debes registrarte para acceder DBGraphics', 'error')
+        return redirect('/')
+    return render_template("panel.html",number=1)
 
 @app.route('/file/process',methods=['GET','POST'])
 def upload_file():
@@ -37,7 +36,7 @@ def upload_file():
             return redirect('/graphics/'+filename)
         
     flash('Hasta aca llega la funcion upload','info')
-    return redirect('panel')
+    return redirect('/panel',number=1)
 
 @app.route('/graphics/<filename>')
 def graphics(filename):
@@ -67,15 +66,19 @@ def graphics(filename):
         'body': list1,
         'rows': list2
     }
-    return render_template('grafico.html',datos=data2)
+    return render_template('grafico.html',datos=data2,number=1,nombre_archivo=filename)
 
 
 
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    if 'usuario_nombre' in session:
+        return render_template('home.html',number=1)
+    return render_template("home.html",number=0)
 
 
 @app.route("/basedatos1")
 def pag1():
-    return render_template("basedatos1.html")
+    if 'usuario_nombre' in session:
+        return render_template('basedatos1.html',number=1)
+    return render_template("basedatos1.html",number=0)

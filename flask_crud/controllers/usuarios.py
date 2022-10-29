@@ -9,14 +9,15 @@ def login():
 
     if 'usuario_nombre' in session:
         flash('Ya estás LOGEADO!', 'warning')
-        return redirect('/panel')
+        return redirect('/home')
 
-    return render_template("login.html")
+    return render_template("login.html",number=0)
 
 @app.route("/procesar_registro", methods=["POST"])
 def procesar_registro():
 
     if not Usuario.validar(request.form):
+        flash('Usuario no registrado','error')
         return redirect('/')
 
     pass_hash = bcrypt.generate_password_hash(request.form['password'])
@@ -62,4 +63,4 @@ def procesar_login():
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect('/')
+    return redirect('/home')

@@ -61,7 +61,7 @@ class Usuario(ModeloBase):
 
     @classmethod
     def buscar(cls, dato):
-        query = "select * from usuarios where email = %(dato)s"
+        query = "select * from usuarios where email = %(dato)s;"
         data = { 'dato' : dato }
         results = connectToMySQL(os.environ.get("BASEDATOS_NOMBRE")).query_db(query, data)
         
