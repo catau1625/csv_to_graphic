@@ -9,5 +9,7 @@ Al momento de ejecutar el programa deben considerarse 2 modificaciones necesaria
 - Cambiar el enrutamiento en utils.py donde se guardan los archivos subidos, esta debe apuntar a la carpeta uploads dentro de tu server.
 - Configurar el archivo .env con los datos de tu sql
 
+Además en la carpeta **doc** se encuentra el codigo **esquema_excel.sql** que recrea la base de datos utlizada para el proyecto.
+
 **Reference-Img**
 Proyecto grupal ![login](https://user-images.githubusercontent.com/101880304/197626295-e9ba78a2-23d4-483f-a29e-4fd67eb5b371.png)
